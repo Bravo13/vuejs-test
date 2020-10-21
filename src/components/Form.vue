@@ -1,10 +1,9 @@
 <template lang="pug">
-  h1 List
+  h1 FORM
 </template>
 
 <script>
 export default {
-  name: 'List',
-  isIndex: true
+  name: 'Add user'
 }
 </script>

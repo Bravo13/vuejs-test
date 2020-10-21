@@ -1,10 +1,9 @@
 <template lang="pug">
-  h1 List
+  h1 STAT
 </template>
 
 <script>
 export default {
-  name: 'List',
-  isIndex: true
+  name: 'Statistics'
 }
 </script>
