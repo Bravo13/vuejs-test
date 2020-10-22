@@ -21,7 +21,6 @@ import Stat from '@/components/Stat'
 const components = [ List, Form, Stat ]
 
 const menu = components.map((module) => {
-  console.log(module.name, module.isIndex)
   return {
     component: module,
     name: module.name.toLowerCase(),
@@ -35,6 +34,12 @@ menu.forEach((item) => router.addRoutes([{
   path: item.path,
   name: item.name
 }]))
+
+router.addRoutes([{
+  component: Form,
+  name: 'edit-user',
+  path: '/edit/:userId'
+}])
 
 export default {
   name: 'App',
