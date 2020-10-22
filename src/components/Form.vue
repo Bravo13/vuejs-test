@@ -6,6 +6,9 @@
       hr
       label Age
       input(v-model="formData.age")
+      hr
+      label Loves Icecream
+      input(type="checkbox", v-model="formData.icecream")
       div(v-show="needSave")
         hr
         button(v-on:click="store") Save
@@ -17,7 +20,8 @@ export default {
   data: function () {
     let formData = {
       name: '',
-      age: ''
+      age: '',
+      icecream: false
     }
 
     if (this.$route.params.userId) {
@@ -26,6 +30,7 @@ export default {
         this.loadedUser = this.$store.state.users[userId]
         formData.name = this.loadedUser.name
         formData.age = this.loadedUser.age
+        formData.icecream = this.loadedUser.icecream
         formData.id = userId
       } else {
         // Here should be error handler
@@ -52,7 +57,8 @@ export default {
       if (editMode) {
         const nameHasChanges = this.formData.name !== this.loadedUser.name
         const ageHasChanges = this.formData.age !== this.loadedUser.age
-        const hasChanges = nameHasChanges || ageHasChanges
+        const icecreamHasChanges = this.formData.icecream !== this.loadedUser.icecream
+        const hasChanges = nameHasChanges || ageHasChanges || icecreamHasChanges
         return editMode && notEmpty && hasChanges
       }
     }

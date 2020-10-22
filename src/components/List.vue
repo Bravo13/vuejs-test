@@ -7,12 +7,14 @@
           td ID
           td Name
           td Age
+          td Loves icecream
           td Actions
       tbody(v-if="!listIsEmpty")
         tr(v-for="item in list")
           td {{ item.id }}
           td {{ item.name }}
           td {{ item.age }}
+          td {{ item.icecream }}
           td
             UserActions(v-bind:userId="item.id")
       tbody(v-else)

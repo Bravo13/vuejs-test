@@ -26,6 +26,7 @@ const store = new vuex.Store({
       state.users[nextId] = {
         name: user.name,
         age: user.age,
+        icecream: user.icecream,
         id: nextId
       }
     },
@@ -33,6 +34,7 @@ const store = new vuex.Store({
     updateUser: function (state, user) {
       state.users[user.id].name = user.name
       state.users[user.id].age = user.age
+      state.users[user.id].icecream = user.icecream
     },
 
     removeUser: function (state, userId) {
