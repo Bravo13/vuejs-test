@@ -6,11 +6,6 @@ Vue.use(vuex)
 const store = new vuex.Store({
   state: {
     users: {
-      1: {
-        id: 1,
-        name: 'Test',
-        age: '30'
-      }
     }
   },
 
@@ -27,7 +22,7 @@ const store = new vuex.Store({
 
   mutations: {
     addUser: function (state, user) {
-      const nextId = Object.keys(state.users).map((s) => parseInt(s)).reduce((a, b) => Math.max(a, b)) + 1
+      const nextId = Object.keys(state.users).map((s) => parseInt(s)).reduce((a, b) => Math.max(a, b), 0) + 1
       state.users[nextId] = {
         name: user.name,
         age: user.age,
@@ -41,7 +36,7 @@ const store = new vuex.Store({
     },
 
     removeUser: function (state, userId) {
-      delete state.users[userId]
+      Vue.delete(state.users, userId)
     }
   }
 })

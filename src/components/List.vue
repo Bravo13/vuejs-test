@@ -31,27 +31,11 @@ export default {
 
   computed: {
     list: function () {
-      console.log('called')
       return this.$store.state.users
     },
     listIsEmpty: function () {
       return !Object.keys(this.$store.state.users).length
     }
-  },
-
-  watch: {
-    list: function (newList, oldList) {
-      console.log('list changed')
-    }
-  },
-
-  mounted () {
-    this.$store.watch(
-      (state) => state.users,
-      (oldVal, newVal) => {
-        console.log('store watcher')
-      }
-    )
   }
 }
 </script>
