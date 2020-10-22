@@ -13,14 +13,19 @@
           td {{ item.id }}
           td {{ item.name }}
           td {{ item.age }}
-          td Actions goes here
+          td
+            UserActions(v-bind:userId="item.id")
       tbody(v-else)
         tr
           td(colspan=4) No records
 </template>
 
 <script>
+import UserActions from '@/components/List/UserActions'
 export default {
+  components: {
+    UserActions
+  },
   name: 'List',
   isIndex: true,
 
