@@ -25,7 +25,7 @@ const menu = components.map((module) => {
   return {
     component: module,
     name: module.name.toLowerCase(),
-    path: module.isIndex ? '/' : '/' + module.name.toLowerCase().replace(/\s+/, '-'),
+    path: module.isIndex ? '/' : '/' + module.name.toLowerCase().replace(/\s+|\//, '-'),
     title: module.name
   }
 })
