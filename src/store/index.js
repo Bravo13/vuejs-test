@@ -25,7 +25,8 @@ const store = new vuex.Store({
       const nextId = Math.max(Object.keys(state.users)) + 1
       state.users[nextId] = {
         name: user.name,
-        age: user.age
+        age: user.age,
+        id: nextId
       }
     },
 
