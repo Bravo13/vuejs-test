@@ -5,7 +5,7 @@
       input(v-model="formData.name")
       hr
       label Age
-      input(v-model="formData.age")
+      input(v-model.number="formData.age" type="number")
       hr
       label Loves Icecream
       input(type="checkbox", v-model="formData.icecream")
@@ -45,7 +45,7 @@ export default {
 
   computed: {
     needSave: function () {
-      const notEmpty = !!this.formData.name.length && !!this.formData.age.length
+      const notEmpty = !!this.formData.name.length && !!this.formData.age
 
       const editMode = 'loadedUser' in this
       const addMode = !editMode
