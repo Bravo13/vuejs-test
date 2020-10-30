@@ -10,21 +10,21 @@
 <script>
 export default {
   props: ['userId'],
-  data: function () {
+  data() {
     return {
       editPath: {
         name: 'edit-user',
         params: {
-          userId: this.userId
-        }
-      }
-    }
+          userId: this.userId,
+        },
+      },
+    };
   },
 
   methods: {
-    removeUser: function (event) {
-      this.$store.commit('removeUser', this.userId)
-    }
-  }
-}
+    removeUser() {
+      this.$store.commit('removeUser', this.userId);
+    },
+  },
+};
 </script>

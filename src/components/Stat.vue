@@ -13,14 +13,14 @@ export default {
   name: 'Statistics',
   computed: {
     averageAge: (state) => {
-      const list = Object.values(state.$store.state.users)
-      return list.map((obj) => parseInt(obj.age)).reduce((acc, curr) => (acc + curr), 0) / (list.length || 1)
+      const list = Object.values(state.$store.state.users);
+      return Math.round(list.reduce((res, user) => res + +user.age, 0) / list.length);
     },
 
     icecreamLoversPercents: (state) => {
-      const list = Object.values(state.$store.state.users)
-      return list.filter((obj) => obj.icecream).length / list.length * 100
-    }
-  }
-}
+      const list = Object.values(state.$store.state.users);
+      return (list.filter((obj) => obj.icecream).length / list.length) * 100;
+    },
+  },
+};
 </script>

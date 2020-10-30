@@ -13,40 +13,38 @@
 
 <script>
 
-import router from '@/router'
-import List from '@/components/List'
-import Form from '@/components/Form'
-import Stat from '@/components/Stat'
+import router from '@/router';
+import List from '@/components/List';
+import Form from '@/components/Form';
+import Stat from '@/components/Stat';
 
-const components = [ List, Form, Stat ]
+const components = [List, Form, Stat];
 
 const menu = components.map((module) => {
+  let path = module.isIndex ? '' : module.name.toLowerCase().replace(/\s+|\//, '-');
+  path = `/${path}`;
   return {
     component: module,
     name: module.name.toLowerCase(),
-    path: module.isIndex ? '/' : '/' + module.name.toLowerCase().replace(/\s+|\//, '-'),
-    title: module.name
-  }
-})
+    title: module.name,
+    path,
+  };
+});
 
 menu.forEach((item) => router.addRoutes([{
   component: item.component,
   path: item.path,
-  name: item.name
-}]))
+  name: item.name,
+}]));
 
 router.addRoutes([{
   component: Form,
   name: 'edit-user',
-  path: '/edit/:userId'
-}])
+  path: '/edit/:userId',
+}]);
 
 export default {
   name: 'App',
-  data: () => {
-    return {
-      menu: menu
-    }
-  }
-}
+  data: () => ({ menu }),
+};
 </script>

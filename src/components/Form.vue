@@ -17,62 +17,66 @@
 <script>
 export default {
   name: 'Adduser',
-  data: function () {
-    let formData = {
+  data() {
+    const formData = {
       name: '',
       age: '',
-      icecream: false
-    }
+      icecream: false,
+    };
 
     if (this.$route.params.userId) {
-      const userId = this.$route.params.userId
+      const { userId } = this.$route.params;
       if (userId in this.$store.state.users) {
-        this.loadedUser = this.$store.state.users[userId]
-        formData.name = this.loadedUser.name
-        formData.age = this.loadedUser.age
-        formData.icecream = this.loadedUser.icecream
-        formData.id = userId
+        this.loadedUser = this.$store.state.users[userId];
+        formData.name = this.loadedUser.name;
+        formData.age = this.loadedUser.age;
+        formData.icecream = this.loadedUser.icecream;
+        formData.id = userId;
       } else {
         // Here should be error handler
-        console.error('No user')
+        // eslint-disable-next-line no-console
+        console.error('No user');
       }
     }
 
     return {
-      formData: formData
-    }
+      formData,
+    };
   },
 
   computed: {
-    needSave: function () {
-      const notEmpty = !!this.formData.name.length && !!this.formData.age
+    needSave() {
+      const notEmpty = !!this.formData.name.length && !!this.formData.age;
 
-      const editMode = 'loadedUser' in this
-      const addMode = !editMode
+      const editMode = 'loadedUser' in this;
+      const addMode = !editMode;
 
+      let result = false;
       if (addMode) {
-        return notEmpty
+        result = notEmpty;
       }
 
       if (editMode) {
-        const nameHasChanges = this.formData.name !== this.loadedUser.name
-        const ageHasChanges = this.formData.age !== this.loadedUser.age
-        const icecreamHasChanges = this.formData.icecream !== this.loadedUser.icecream
-        const hasChanges = nameHasChanges || ageHasChanges || icecreamHasChanges
-        return editMode && notEmpty && hasChanges
+        const nameHasChanges = this.formData.name !== this.loadedUser.name;
+        const ageHasChanges = this.formData.age !== this.loadedUser.age;
+        const icecreamHasChanges = this.formData.icecream !== this.loadedUser.icecream;
+        const hasChanges = nameHasChanges || ageHasChanges || icecreamHasChanges;
+        result = editMode && notEmpty && hasChanges;
       }
-    }
+
+      return result;
+    },
   },
 
   methods: {
-    store: function (event) {
+    store() {
       if (this.loadedUser) {
-        this.$store.commit('updateUser', this.formData)
+        this.$store.commit('updateUser', this.formData);
       } else {
-        this.$store.commit('addUser', this.formData)
+        this.$store.commit('addUser', this.formData);
       }
-      this.$router.push({name: 'list'})
-    }
-  }
-}
+      this.$router.push({ name: 'list' });
+    },
+  },
+};
 </script>

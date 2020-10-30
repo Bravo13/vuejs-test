@@ -23,21 +23,22 @@
 </template>
 
 <script>
-import UserActions from '@/components/List/UserActions'
+import UserActions from '@/components/List/UserActions';
+
 export default {
   components: {
-    UserActions
+    UserActions,
   },
   name: 'List',
   isIndex: true,
 
   computed: {
-    list: function () {
-      return this.$store.state.users
+    list() {
+      return this.$store.state.users;
     },
-    listIsEmpty: function () {
-      return !Object.keys(this.$store.state.users).length
-    }
-  }
-}
+    listIsEmpty() {
+      return !Object.keys(this.$store.state.users).length;
+    },
+  },
+};
 </script>
