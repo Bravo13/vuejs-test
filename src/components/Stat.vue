@@ -9,18 +9,18 @@
 </template>
 
 <script>
-export default {
-  name: 'Statistics',
-  computed: {
-    averageAge: (state) => {
-      const list = Object.values(state.$store.state.users);
-      return Math.round(list.reduce((res, user) => res + +user.age, 0) / list.length);
-    },
+import { Component, Vue } from 'vue-property-decorator';
 
-    icecreamLoversPercents: (state) => {
-      const list = Object.values(state.$store.state.users);
-      return (list.filter((obj) => obj.icecream).length / list.length) * 100;
-    },
-  },
-};
+@Component
+export default class Stat extends Vue {
+  get averageAge() {
+    const list = Object.values(this.$store.state.users);
+    return Math.round(list.reduce((res, user) => res + +user.age, 0) / list.length);
+  }
+
+  get icecreamLoversPercents() {
+    const list = Object.values(this.$store.state.users);
+    return (list.filter((obj) => obj.icecream).length / list.length) * 100;
+  }
+}
 </script>
