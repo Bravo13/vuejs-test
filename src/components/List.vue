@@ -23,22 +23,23 @@
 </template>
 
 <script>
+import { Vue, Component } from 'vue-property-decorator';
 import UserActions from '@/components/List/UserActions';
 
-export default {
+@Component({
   components: {
     UserActions,
   },
-  name: 'List',
-  isIndex: true,
+})
+export default class List extends Vue {
+  isIndex = true
 
-  computed: {
-    list() {
-      return this.$store.state.users;
-    },
-    listIsEmpty() {
-      return !Object.keys(this.$store.state.users).length;
-    },
-  },
-};
+  get list() {
+    return this.$store.state.users;
+  }
+
+  get listIsEmpty() {
+    return !Object.keys(this.$store.state.users).length;
+  }
+}
 </script>

@@ -13,6 +13,7 @@
 
 <script>
 
+import { Vue, Component } from 'vue-property-decorator';
 import router from '@/router';
 import List from '@/components/List';
 import Form from '@/components/Form';
@@ -40,11 +41,12 @@ menu.forEach((item) => router.addRoutes([{
 router.addRoutes([{
   component: Form,
   name: 'edit-user',
-  path: '/edit/:userId',
+  path: '/form/:userId',
+  props: true,
 }]);
 
-export default {
-  name: 'App',
-  data: () => ({ menu }),
-};
+@Component
+export default class App extends Vue {
+  menu = menu
+}
 </script>

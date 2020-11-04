@@ -15,8 +15,10 @@
 </template>
 
 <script>
-export default {
-  name: 'Adduser',
+import { Vue, Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class Form extends Vue {
   data() {
     const formData = {
       name: '',
@@ -24,14 +26,13 @@ export default {
       icecream: false,
     };
 
-    if (this.$route.params.userId) {
-      const { userId } = this.$route.params;
-      if (userId in this.$store.state.users) {
-        this.loadedUser = this.$store.state.users[userId];
+    if (this.userId) {
+      if (this.userId in this.$store.state.users) {
+        this.loadedUser = this.$store.state.users[this.userId];
         formData.name = this.loadedUser.name;
         formData.age = this.loadedUser.age;
         formData.icecream = this.loadedUser.icecream;
-        formData.id = userId;
+        formData.id = this.userId;
       } else {
         // Here should be error handler
         // eslint-disable-next-line no-console
@@ -42,41 +43,36 @@ export default {
     return {
       formData,
     };
-  },
+  }
 
-  computed: {
-    needSave() {
-      const notEmpty = !!this.formData.name.length && !!this.formData.age;
+  @Prop(Number) userId;
 
-      const editMode = 'loadedUser' in this;
-      const addMode = !editMode;
+  get needSave() {
+    const notEmpty = !!this.formData.name.length && !!this.formData.age;
 
-      let result = false;
-      if (addMode) {
-        result = notEmpty;
-      }
+    let result = false;
+    if (!this.userId) {
+      result = notEmpty;
+    }
 
-      if (editMode) {
-        const nameHasChanges = this.formData.name !== this.loadedUser.name;
-        const ageHasChanges = this.formData.age !== this.loadedUser.age;
-        const icecreamHasChanges = this.formData.icecream !== this.loadedUser.icecream;
-        const hasChanges = nameHasChanges || ageHasChanges || icecreamHasChanges;
-        result = editMode && notEmpty && hasChanges;
-      }
+    if (this.userId) {
+      const nameHasChanges = this.formData.name !== this.loadedUser.name;
+      const ageHasChanges = this.formData.age !== this.loadedUser.age;
+      const icecreamHasChanges = this.formData.icecream !== this.loadedUser.icecream;
+      const hasChanges = nameHasChanges || ageHasChanges || icecreamHasChanges;
+      result = this.userId && notEmpty && hasChanges;
+    }
 
-      return result;
-    },
-  },
+    return result;
+  }
 
-  methods: {
-    store() {
-      if (this.loadedUser) {
-        this.$store.commit('updateUser', this.formData);
-      } else {
-        this.$store.commit('addUser', this.formData);
-      }
-      this.$router.push({ name: 'list' });
-    },
-  },
-};
+  store() {
+    if (this.loadedUser) {
+      this.$store.commit('updateUser', this.formData);
+    } else {
+      this.$store.commit('addUser', this.formData);
+    }
+    this.$router.push({ name: 'list' });
+  }
+}
 </script>
